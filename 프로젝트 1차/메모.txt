@@ -1,5 +1,0 @@
-코스피 100 : 1980/1/4
-s&p 100 : 1982/8/12
-대한민국 경기 선행 지수 https://ko.tradingeconomics.com/south-korea/leading-economic-index
-
-주식 변동 그래프 R 14강 plotly
