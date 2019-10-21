@@ -5,19 +5,19 @@ install.packages('raster')
 install.packages('rgeos')
 install.packages('maptools')
 install.packages('rgdal')
-
+rm(list = ls())
 library(ggmap)
 library(ggplot2)
 library(raster)
 library(rgeos)
 library(maptools)
 library(rgdal)
-
+setwd ('C:/dev/R-project1')
 # 시각화할 자료 여기에 :
 # P<- read.csv('data/sample.csv,header = TRUE') 현 자료에 SEOUL_ID 과 일치하는 id칼럼을 미리 삽입해야 함.
 
-map <- shapefile('C:/dev/R-project1/maps/TL_SCCO_SIG.shp')# 지리 정보 자료/201703
-setwd ('C:/dev/R-project1') # 프로젝트 폴더 변경 
+map <- shapefile('maps/TL_SCCO_SIG.shp')# 지리 정보 자료/201703
+
 
 # https://givitallugot.tistory.com/2
 
