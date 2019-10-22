@@ -26,9 +26,13 @@ head(add1417$한글id)
 coordinate <- read_excel('data/주소/add_total_fin.shp.xlsx')
 View(coordinate)
 
-# join 하자
+# join 하자 -> 각 좌표값 삽입!
 left_join(add19_test,coordinate,by = "한글id")
 
 left_join(add19,coordinate,by = "한글id")
 left_join(add18,coordinate,by = "한글id")
 left_join(add1417,coordinate,by = "한글id")
+
+write.csv(add19,'data/add19_coord.csv')
+write.csv(add18,'data/add18_coord.csv')
+write.csv(add1417,'data/add1417_coord.csv')

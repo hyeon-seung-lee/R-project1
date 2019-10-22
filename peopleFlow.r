@@ -1,5 +1,7 @@
 rm(list = ls())
 setwd ('C:/dev/R-project1')
-seoulflow19 <- read.csv(file = 'data/flow2019.csv')
+seoulflow19 <- read_excel("flowdata/flow2019.xlsx")
+seoulflow18 <- read_excel("flowdata/flow2018.xlsx")
+seoulflow17 <- read_excel("flowdata/flow201417.xlsx")
 head(seoulflow19)
 str(seoulflow19)
