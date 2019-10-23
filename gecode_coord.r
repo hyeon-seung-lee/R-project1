@@ -19,3 +19,15 @@ coords18 <- geocode(location = flow18_comname$trdar_cd_nm,
 coords17 <- geocode(location = flow17_comname$trdar_cd_nm, 
                     output = 'latlona',
                     source = 'google')
+
+# Geocode를 500개씩 나누어 처리하기 위해 벡터값 생성
+16000/500
+num17 = c(1:32)
+num17 = c(num17*500,16160)
+num17 = num17[-32]
+4000/500
+num18 = c(1:8)
+num18 = c(num18*500,4040)
+num18 = num18[-8]
+num19 = c(500, 1011)
+
