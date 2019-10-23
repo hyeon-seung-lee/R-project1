@@ -12,27 +12,36 @@ names(add1417)[1] <- c("trdar_cd_nm")
 
 #데이터 프레임 옆에 도로명 '앞2글자' '한글id' 칼럼 생성
 add19_test <- head(add19,n=10)
-add19_test <- cbind(add19_test,한글id=substring(add19_test$trdar_cd_nm,1,2))
+add19_test <- cbind(add19_test,korid=substring(add19_test$trdar_cd_nm,1,2))
 
-add19 <- cbind(add19,한글id=substring(add19$trdar_cd_nm,1,2))
-head(add19$한글id)
-add18 <- cbind(add18,한글id=substring(add18$trdar_cd_nm,1,2))
-head(add18$한글id)
+add19 <- cbind(add19,korid=substring(add19$trdar_cd_nm,1,2))
+head(add19$korid)
+add18 <- cbind(add18,korid=substring(add18$trdar_cd_nm,1,2))
+head(add18$korid)
 
-add1417 <- cbind(add1417,한글id=substring(add1417$trdar_cd_nm,1,2))
-head(add1417$한글id)
+add1417 <- cbind(add1417,korid=substring(add1417$trdar_cd_nm,1,2))
+head(add1417$korid)
 
 # 좌표 데이터 프레임 가져오기
-coordinate <- read_excel('data/주소/add_total_fin.shp.xlsx')
+coordinate <- read_excel('data/주소/add_total_fin2.xlsx')
 View(coordinate)
-
+head(coordinate)
 # join 하자 -> 각 좌표값 삽입!
-left_join(add19_test,coordinate,by = "한글id")
+left_join(add19_test,coordinate,by = "korid")
 
-left_join(add19,coordinate,by = "한글id")
-left_join(add18,coordinate,by = "한글id")
-left_join(add1417,coordinate,by = "한글id")
+add19 = left_join(add19,coordinate,by = "korid")
+add18 = left_join(add18,coordinate,by = "korid")
+add1417 = left_join(add1417,coordinate,by = "korid")
+
+head(add1417)
+head(add18)
+head(add19)
+add1417 = add1417[,c(1,5,6)]
+add18 = add18[,c(1,5,6)]
+add19 = add19[,c(1,5,6)]
+
 
 write.csv(add19,'data/add19_coord.csv')
 write.csv(add18,'data/add18_coord.csv')
 write.csv(add1417,'data/add1417_coord.csv')
+
