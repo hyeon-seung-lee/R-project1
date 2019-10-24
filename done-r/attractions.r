@@ -37,5 +37,6 @@ attSeoulCoords <- geocode(location = seoul_attractions,
                           source = 'google')
 
 att_Seoul_data <- cbind(seoul_attractions,attSeoulCoords)
+att_Seoul_data <- read_excel('data/주소/att_seoul_coord.xlsx')
 write.csv(att_Seoul_data,file = 'data/주소/att_seoul_coord.csv') #lon, lat
 

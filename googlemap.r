@@ -1,5 +1,6 @@
 # google map 이용
 # littlemissdata.com 시작
+rm(list = ls())
 install.packages("lubridate")
 install.packages("ggplot2")
 install.packages("data.table") # failed
@@ -18,19 +19,38 @@ library(tidyverse)
 library(ggmap)
 
 register_google(key='AIzaSyBQsv4dm2o6hBfchlPQDMpMyRdkLsk-3k8') # 부여받은 키 등록
-cen <- c(mean(flow19$long),mean(flow19$lat))
+cen <- c(126.9894661,	37.53802834)
+
+str(flow_19)
 sgm     <-ggmap( get_googlemap(center=cen,
                                maptype='roadmap',
                                zoom=13,
                                size=c(640,640),
                                color = 'color'))
 sgm
+# 2017, 2018년 자료를 소폭 이동시켜야 함.
+flow_17 <- flow_17$lat
+flow_17 <- flow_17$lon+0.00001
+flow_18 <- flow_18$lat+0.000005
+flow_18 <- flow_18$lon+0.000005
+
+
 # 데이터 프레임에서  전체 유동인구만 선택
-flow19_tot_flpop <-   flow19 %>% select(tot_flpop_co,long,lat) 
+flow19_tot_flpop <-   flow_19 %>% select(tot_flpop_co,lon,lat) 
 head(flow19_tot_flpop)
+flow18_tot_flpop <-   flow_18 %>% select(tot_flpop_co,lon,lat) 
+flow17_tot_flpop <-   flow_17 %>% select(tot_flpop_co,lon,lat) 
+
+
+
+
 
 # sgm (Seoul Google Map)
-sgm + geom_point(aes(x = long, y = lat ), data = flow19_tot_flpop, size = 1.8, alpha=0.25, color = 'red') + 
+sgm + geom_point(aes(x = lon, y = lat ), data = flow19_tot_flpop, size = 1.8, alpha=0.35, color = 'red') + 
+  theme(legend.position="bottom")+
+ geom_point(aes(x = lon, y = lat ), data = flow18_tot_flpop, size = 1.8, alpha=0.35, color = 'red') + 
+  theme(legend.position="bottom")+
+  geom_point(aes(x = lon, y = lat ), data = flow17_tot_flpop, size = 1.8, alpha=0.35, color = 'red') + 
   theme(legend.position="bottom")
 
 # 구별 center data 또는 동, 서, 남, 북, 중앙 등의 좌표 데이터
@@ -49,3 +69,5 @@ geom_point(aes(x = lon, y = lat, stroke = 2), data = att_Seoul_df, size =1.5) +
     size = 2, 
     box.padding = 0, point.padding = 0,
     segment.color = 'grey50') 
+
+
