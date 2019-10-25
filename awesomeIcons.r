@@ -2,9 +2,9 @@
 rm(list = ls())
 df.20 <- quakes[1:10,]
 str(df.20)
-
-getColor <- function(flow19) {
-  sapply(flow19$group, function(group) {
+flow19_group <- flow19$group[drop = T]
+getColor <- function(flow19_group) {
+  sapply(flow19_group$group, function(group) {
     if(group%%7 = 0) {
       "red"
     } else if(group%%7 = 1) {
@@ -30,3 +30,10 @@ icons <- awesomeIcons(
 
 leaflet(df.20) %>% addTiles() %>%
   addAwesomeMarkers(~long, ~lat, icon=icons, label=~as.character(group), data = flow19)
+
+
+names(flow19)[536] <- c("group")
+
+
+
+group_color = colorFactor('Set1', flow19$group)
