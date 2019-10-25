@@ -3,8 +3,12 @@ install.packages("pracma") # nthroot 사용하기 위한 패키지
 install.packages("leaflet")
 library(pracma)
 library(leaflet)
-
+library(dplyr)
+# 변수 선언
 cen <- c(126.9894661,	37.53802834)
+content <- content <- paste("<a>",flow19$trdar_cd_nm,"</a> : ",
+                            flow19$tot_flpop_co)
+
 
 m <- leaflet() %>%
   addTiles() %>%  # Add default OpenStreetMap map tiles
@@ -54,6 +58,50 @@ leaflet(flow19) %>% addTiles() %>%
   addCircles(lng = ~lon, lat = ~lat, weight = 1,
              radius = (~nthroot(tot_flpop_co,3)*2.5), popup = content,
              fillColor = 'red')
-content <- content <- paste("<a>",flow19$trdar_cd_nm,"</a> : ",
-                            flow19$tot_flpop_co)
+
 paste
+
+# Clusters option을 표시하자.
+leaflet(flow19) %>% addTiles() %>%
+  setView(lng = cen[1], lat = cen[2], zoom = 12) %>% 
+  addCircles(lng = ~lon, lat = ~lat, weight = 1,
+             radius = (~nthroot(tot_flpop_co,3)*2.3), popup = content,
+             fillColor = 'red',color = NA, fillOpacity = 0.3) %>% 
+  addMarkers( lng = ~lon,lat = ~lat,popup= ~seoul_attractions,          #서울 명소
+             options = popupOptions(closeButton = FALSE), data = att_seoul,
+clusterOptions = markerClusterOptions(removeOutsideVisibleBounds = F))
+
+# 서울 지하철역과 유동인구를 표시하자
+leaflet(flow19) %>% addTiles() %>%
+  setView(lng = cen[1], lat = cen[2], zoom = 12) %>%                      #지도 초기값
+  
+  addCircles(lng = ~lon, lat = ~lat, weight = 1,                          #유동인구
+             radius = (~nthroot(tot_flpop_co,3)*2.3), popup = content,
+             fillColor = 'red',color = NA, fillOpacity = 0.3) %>% 
+  
+  addMarkers( lng = ~lon,lat = ~lat,popup= ~statn_nm,          #서울 지하철
+              options = popupOptions(closeButton = FALSE), data = subway
+              )
+
+# Cluster Center(20곳)과 유동인구를 표시하자
+leaflet(flow19) %>% addTiles() %>%
+  setView(lng = cen[1], lat = cen[2], zoom = 12) %>%                      #지도 초기값
+  
+  addCircles(lng = ~lon, lat = ~lat, weight = 1,                          #유동인구
+             radius = (~nthroot(tot_flpop_co,3)*2.3), popup = content,
+             fillColor = 'red',color = NA, fillOpacity = 0.3) %>% 
+  
+  addMarkers( lng = ~lon,lat = ~lat,          #서울 지하철
+              options = popupOptions(closeButton = FALSE), data = main_trade_area,
+              popup = ~trdar_cd_nm
+  )
+
+# 유동인구를 그룹별로 나누자
+leaflet(flow19) %>% addTiles() %>%
+  setView(lng = cen[1], lat = cen[2], zoom = 12) %>% 
+  addCircles(lng = ~lon, lat = ~lat, weight = 1,
+             radius = (~nthroot(tot_flpop_co,3)*2.5), popup = content,
+             fillColor = 'red') %>% 
+             addAwesomeMarkers(~lon, ~lat, icon=icons, label=~as.character(group), data = flow19)  
+  
+  

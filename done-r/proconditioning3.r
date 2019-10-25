@@ -8,26 +8,26 @@ head(add19_coord)
 
 
 #
-flow_19 <- read_excel('flowdata/flow2019.xlsx')
-flow_18 <- read_excel('flowdata/flow2018.xlsx')
-flow_17 <- read_excel('flowdata/flow201417.xlsx')
+flow19 <- read_excel('flowdata/flow2019.xlsx')
+flow18 <- read_excel('flowdata/flow2018.xlsx')
+flow17 <- read_excel('flowdata/flow201417.xlsx')
 head(flow_19)
 
 add19 = add19[-1011,] # add19 1011obs라 마지막 행 제거
 
 #Join
-flow_19<- left_join(flow_19, add_total, by = 'trdar_cd_nm')
-head(flow_19)
+flow19<- left_join(flow19, add_total, by = 'trdar_cd_nm')
+head(flow19)
 #id 열 제거
-flow_19 = flow_19[,-533]
+flow19 = flow19[,-535]
 
-flow_18<- left_join(flow_18, add18_coord, by = 'trdar_cd_nm')
+flow18<- left_join(flow18, add_total, by = 'trdar_cd_nm')
 head(flow_18)
-flow_18 = flow_18[,-533]
+flow18 = flow18[,-535]
 
-flow_17<- left_join(flow_17, add17_coord, by = 'trdar_cd_nm')
+flow17<- left_join(flow17, add_total, by = 'trdar_cd_nm')
 head(flow_17)
-flow_17 = flow_17[,-533]
+flow17 = flow17[,-535]
 
 #csv 파일로 저장
 write.csv(flow_19,'data/flow2019_coord.csv')
