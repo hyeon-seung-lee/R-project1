@@ -2,10 +2,16 @@
 install.packages("pracma") # nthroot 사용하기 위한 패키지
 install.packages("leaflet")
 install.packages('viridis')
+install.packages('pals')
+library(ggplot2)
 library(pracma)
 library(leaflet)
 library(dplyr)
-
+library(pals)
+library(viridis)
+pal.bands(alphabet, alphabet2, cols25, glasbey, kelly, polychrome, 
+          stepped, tol, watlington,
+          show.names=FALSE)
 # 변수 선언
 cen <- c(126.9894661,	37.53802834)
 content <- paste("<a>",flow19_group$trdar_cd_nm,"</a> : ",
@@ -99,13 +105,16 @@ leaflet(flow19) %>% addTiles() %>%
   )
 
 
+
+
 # 유동인구를 그룹별로 나누자
 
 # 색깔 데이터셋 설정 
-flow19_color = colorFactor(palette = 'viridis', flow19_group$group)
+
+flow19_color = colorFactor(palette = c('red', 'blue', 'green', 'purple', 'orange'), flow19_group$group)
 content <- paste("<a>",flow19_group$trdar_cd_nm,"</a> : ",
                  flow19$tot_flpop_co,'</br> group : ',flow19_group$group)
-popup <- paste("Group : ",flow19_center_denorm$no)
+popup <- paste("<a>",flow19_center_denorm$name,"</a></br>",'GroupNo : ',flow19_center_denorm$no)
 
 leaflet(flow19_group) %>% addTiles() %>%
   setView(lng = cen[1], lat = cen[2], zoom = 12) %>% 
@@ -121,4 +130,19 @@ leaflet(flow19_group) %>% addTiles() %>%
   
   table(flow19_group_data)
 table(flow19_group$group)
-  
+#main trade area
+
+leaflet(main_trade_area) %>% addTiles() %>%
+  addPopups(main_trade_area$lon,main_trade_area$lat, main_trade_area$area_name,
+            options = popupOptions(closeButton = FALSE))
+
+flow_group_data<- ncol(flow19_center_denorm, area_name )
+area_name = data.frame(no = c(1:23),name = c('명동, 종로', '경희대','성신여대','잠실',
+              '', '건대입구','은평구','왕십리',
+              '구로,영등포', '신림','사당','용산,신촌',
+              '이태원, 신사','수유', ' ' ,'강남대로','','목동','화곡동',
+              '답십리','도봉산/북한산','천호역','홍대/합정'))
+flow19_center_denorm<-flow19_center_denorm[-4]
+flow19_center_denorm = left_join(flow19_center_denorm,area_name, by = 'no')
+flow_center <- flow19_center_denorm
+flow_color = flow19_color
