@@ -1,10 +1,10 @@
 #18년도 total 데이터 전처리
 #1. Group Data 합계 가능?
 rm(list = ls())
+load("save/flow18.rdata")
 
 
 
-rm(list = ls())
 
 #1 kmeans.
 flow18_km <- flow18 %>%  select(tot_flpop_co,  lon, lat)
@@ -52,7 +52,7 @@ flow18_center_denorm<- as.data.frame(cbind(no = c(1:length(flow18_center_denorm_
 
 
 #2 leaflet
-popup <- paste("Group ",flow18_center_denorm$no,"</br> Flow : ",
+popup_center <- paste("Group ",flow18_center_denorm$no,"</br> Flow : ",
                flow18_center_denorm$flow_total)
 content <- paste("<a>",flow18$trdar_cd_nm,"</a> : ",
                  flow18$tot_flpop_co,'</br> Group ',flow18$group)
@@ -67,7 +67,7 @@ leaflet(flow18_group) %>% addTiles() %>%
   
   addMarkers( lng = ~lon,lat = ~lat,          
               options = popupOptions(closeButton = FALSE), data = flow18_center_denorm,
-              popup = popup
+              popup = popup_center
   )
 
 flow18<-flow18_group

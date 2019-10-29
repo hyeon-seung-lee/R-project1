@@ -40,3 +40,20 @@ att_Seoul_data <- cbind(seoul_attractions,attSeoulCoords)
 att_Seoul_data <- read_excel('data/주소/att_seoul_coord.xlsx')
 write.csv(att_Seoul_data,file = 'data/주소/att_seoul_coord.csv') #lon, lat
 
+
+
+
+#상권이름 편집(18년)
+area_name = data.frame(no = c(1:23),name = c('건대입구', '명동, 종로','천호역','',
+                                             '성신여대', '','홍대,합정','수유',
+                                             '강남대로', '독산동','은평구','왕십리',
+                                             '이태원','잠실, 송파', '강서, 화곡 ' ,
+                                             '신도림, 대림','당곡, 신림','목동',
+                                             '용산, 신촌',  '경희대','도봉산/북한산',
+                                             '숭실대, 서울대','사당, 서초'))
+
+
+
+
+
+

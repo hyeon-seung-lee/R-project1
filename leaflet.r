@@ -142,7 +142,7 @@ area_name = data.frame(no = c(1:23),name = c('명동, 종로', '경희대','성�
               '구로,영등포', '신림','사당','용산,신촌',
               '이태원, 신사','수유', ' ' ,'강남대로','','목동','화곡동',
               '답십리','도봉산/북한산','천호역','홍대/합정'))
-flow19_center_denorm<-flow19_center_denorm[-4]
-flow19_center_denorm = left_join(flow19_center_denorm,area_name, by = 'no')
+flow18_center_denorm<-flow19_center_denorm[-4]
+flow18_center_denorm = left_join(flow18_center_denorm,area_name, by = 'no')
 flow_center <- flow19_center_denorm
 flow_color = flow19_color
