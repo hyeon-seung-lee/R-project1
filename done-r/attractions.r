@@ -21,9 +21,8 @@ x = c(1:(length(seoul_attractions)/2))
 x = c(x*2-1)
 seoul_attractions<-seoul_attractions[x]
 
+
 # 구글 이용한 주소 추출
-
-
 
 library(ggmap)
 geocodeQueryCheck()

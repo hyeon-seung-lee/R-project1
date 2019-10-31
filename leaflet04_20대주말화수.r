@@ -29,14 +29,14 @@ str(flow18_weekend_total)
 flow18_tuewedn <-flow18[,c(6,77:88,329:340,534:536)]
 flow18_tuewedn_total<-flow18_tuewedn %>% mutate(total = rowSums(.[1:4040,2:25]))
 flow18_tuewedn_total[,29] <- as.numeric(flow18_tuewedn_total[,29])
-
+View(flow18_tuewedn_total)
   
   # 20대 주말 - 화수 데이터
   flow18_wend_tuwen<-data.frame(c(flow18_weekend_total[1],flow18_weekend_total[,2:25]-flow18_tuewedn_total[,2:25],flow18_weekend_total[26:28]))
   flow18_wend_tuwen<-flow18_wend_tuwen %>% mutate(total = rowSums(.[1:4040,2:25]))
   flow18_wend_tuwen[,29] <- as.numeric(flow18_wend_tuwen[,29])
   flow18_wend_tuwen_positive<-flow18_wend_tuwen %>% filter(flow18_wend_tuwen[29]>0)
- 
+  View(flow18_wend_tuwen_positive)
   
   # 20대 화수 - 주말 데이터
   
@@ -44,7 +44,7 @@ flow18_tuewedn_total[,29] <- as.numeric(flow18_tuewedn_total[,29])
   flow18_tuwen_wend<-flow18_tuwen_wend %>% mutate(total = rowSums(.[1:4040,2:25]))
   flow18_tuwen_wend[,29] <- as.numeric(flow18_tuwen_wend[,29])
   flow18_tuwen_wend_positive<-flow18_tuwen_wend %>% filter(flow18_tuwen_wend[29]>0)
-  
+  View(flow18_tuwen_wend_positive)
   
   #이걸 전부  합칠 수 있다구요?
   load('save/flow18_center_denorm.rdata')

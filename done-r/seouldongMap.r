@@ -30,6 +30,10 @@ map <- gBuffer(map, byid=TRUE, width=0)
 new_map <- fortify(map,region = 'EMD_CD') # fortify 함수로 map을 data-frame으로 변환. 
                                           # EMD_CD 칼럼이 id로 변환됨 
 View(new_map)
+seoul_map_ggplot <- ggplot() + geom_polygon(data = new_map, 
+                                            aes(x = long, 
+                                                y = lat, group=group), 
+                                            fill = 'white', color = 'black' ) 
 
 #11740   ÷   1337748 =,0.008775942853213,
 # id <=11740 인 지역이 서울시 정보. 
